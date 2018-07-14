@@ -1,6 +1,3 @@
-
-![Connect 4](./c4.jpg)
-
 In this project you'll use Ruby to build a command line implementation of the classic game Connect 4.
 
 ## Learning Goals / Areas of Focus
