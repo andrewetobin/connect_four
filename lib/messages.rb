@@ -9,6 +9,7 @@ module Messages
 
   def prompt
     puts 'Would you like to (p)lay, read the (r)rules, or (q)uit?'
+    sleep(2)
   end
 
   def rules
@@ -25,6 +26,26 @@ module Messages
     puts "The computer will then pick a spot to go\n\n"
     sleep(4)
     puts "The first player to connect four wins!".red.blink
+    sleep(4)
+  end
+
+  def invalid_spot
+    "The column is full, please pick another column to drop your piece into\n"
+    sleep(4)
+  end
+
+  def turn
+    "Please pick on of the letters (A-G) at the top of the grid to drop your piece into\n\n"
+    sleep(4)
+  end
+
+  def player_won
+    puts "AMAZING you won!! ".white.on_red.blink
+    sleep(6)
+  end
+
+  def computer_won
+    puts "Sorry, the computer won.... :("
     sleep(4)
   end
 end
