@@ -33,18 +33,23 @@ module Messages
     sleep(4)
   end
 
-  def turn
-    "Please pick on of the letters (A-G) at the top of the grid to drop your piece into.\n\n"
-    sleep(4)
+  def invalid_choice
+    puts "\nInvalid choice. Try again.\n".red
+  end
+
+  def start_turn
+    puts "Please pick one of the letters (A-G) at the top of the grid to drop your piece into.\n\n"
   end
 
   def player_won
     puts "AMAZING you won!! ".white.on_red.blink
-    sleep(6)
   end
 
   def computer_won
     puts "Sorry, the computer won.... :("
-    sleep(4)
+  end
+
+  def draw
+    puts "The game has ended in a draw"
   end
 end

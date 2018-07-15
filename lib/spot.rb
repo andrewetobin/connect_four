@@ -15,7 +15,7 @@ class Spot
     @state = 'X'.red
   end
 
-  def computer_state
+  def computer_state(drop_spot)
     @state = 0
   end
 
