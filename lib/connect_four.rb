@@ -56,12 +56,45 @@ class Connect_Four
     column = one_array.find_all do |spot|
       spot.column == user_input.upcase
     end
-    drop_spot = column.min_by do |spot|
-      spot.state == "." && spot.location
+    empties = column.select do |spot|
+      spot.state == "."
+    end
+    drop_spot = empties.min_by do |spot|
+      spot.location
     end
     player.spots << drop_spot.location
     drop_spot.player_state
     board.display_board
+    computer_turn
+  end
+
+  def computer_turn
+    letters = ("A".."G").to_a
+    number = rand(0..6)
+    letter = letters[number]
+    one_array = @board.board_arrays.flatten
+    column = one_array.find_all do |spot|
+      spot.column == letter.upcase
+    end
+    empties = column.select do |spot|
+      spot.state == "."
+    end
+    drop_spot = empties.min_by do |spot|
+      spot.location
+    end
+    computer.spots << drop_spot.location
+    drop_spot.computer_state
+    @round += 1
+    sleep(4)
+    board.display_board
+    send_back_to_player
+  end
+
+  def send_back_to_player
+    start_turn
+    user_input = input
+    player_turn(user_input)
+
   end
 
   def loop_back
