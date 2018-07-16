@@ -1,9 +1,9 @@
-# require_relative 'messages'
-# require_relative 'connect_four'
-# require_relative 'player'
+require_relative 'messages'
+require_relative 'game'
+require_relative 'player'
 
-class Validations
-  # include Messages
+module Validations
+  include Messages
 
   # def check_for_draw
   #   if @game.round == 22
@@ -13,12 +13,23 @@ class Validations
   # end
 
   def check_input(input)
-    if ("A".."Z").include?(input.upcase) && input.length == 1
+    if ("A".."Z").include?(input.upcase) && input.length == 1 && check_column(input) == true
       return input
     else
       invalid_choice
       user_input = input
-      player.turn(user_input)
+      check_input(user_input)
+      player_turn(user_input)
+    end
+  end
+
+  def check_column(user_input)
+    one_array = @board.board_arrays.flatten
+    column = one_array.find_all do |spot|
+      spot.column == user_input.upcase
+    end
+    column.any? do |spot|
+      spot.state == "."
     end
   end
 
