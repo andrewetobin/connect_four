@@ -91,6 +91,16 @@ class Game
     letters = ("A".."G").to_a
     number = rand(0..6)
     letter = letters[number]
+    if check_column(letter) == true
+      letter
+    else
+      computer_turn
+    end
+    computer_drop(letter)
+  end
+
+
+  def computer_drop(letter)
     one_array = @board.board_arrays.flatten
     column = one_array.find_all do |spot|
       spot.column == letter.upcase
@@ -103,10 +113,18 @@ class Game
     end
     computer.spots << drop_spot.location
     drop_spot.computer_state
+    end_round
+  end
+
+  def end_round
     @round += 1
     sleep(4)
     board.display_board
+    if @round == 22
+      draw
+    else
     send_back_to_player
+    end 
   end
 
   def send_back_to_player
@@ -114,7 +132,6 @@ class Game
     user_input = input
     check_input(user_input)
     player_turn(user_input)
-
   end
 
   def loop_back
