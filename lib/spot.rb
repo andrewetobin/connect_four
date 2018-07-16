@@ -1,12 +1,13 @@
 require 'colorize'
 
 class Spot
-  attr_reader   :location
+  attr_reader   :location, :column
   attr_accessor :state
 
 
-  def initialize(location)
-    @location = location
+  def initialize(spot)
+    @location = spot[0]
+    @column = spot[1]
     @state = "."
   end
 
