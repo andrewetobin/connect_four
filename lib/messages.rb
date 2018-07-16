@@ -1,3 +1,4 @@
+require_relative 'game'
 require 'colorize'
 
 module Messages
@@ -51,5 +52,7 @@ module Messages
 
   def draw
     puts "The game has ended in a draw"
+    sleep(3)
+    quit
   end
 end
