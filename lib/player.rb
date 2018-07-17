@@ -4,7 +4,7 @@
 # require_relative 'validations'
 
 class Player
-  include Messages
+  # include Messages
   # include Validations
   attr_accessor :spots
 

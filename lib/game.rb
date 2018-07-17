@@ -65,7 +65,7 @@ class Game
   end
 
   def check_column(user_input)
-    one_array = @board.board_arrays.flatten
+    one_array = board.board_arrays.flatten
     column = one_array.find_all do |spot|
       spot.column == user_input.upcase
     end
@@ -76,7 +76,7 @@ class Game
   end
 
   def player_turn(user_input)
-    one_array = @board.board_arrays.flatten
+    one_array = board.board_arrays.flatten
     column = one_array.find_all do |spot|
       spot.column == user_input.upcase
     end
