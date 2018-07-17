@@ -37,7 +37,6 @@ class Game
     gets.strip.downcase
   end
 
-
   def start_game_flow(user_input)
     if user_input == 'p' || user_input == 'play'
       @player = Player.new
@@ -94,7 +93,6 @@ class Game
     drop_spot.player_state
     board.display_board
     check_for_win(player.spots)
-    # computer_turn
   end
 
   def check_for_win(spots)
@@ -181,11 +179,7 @@ class Game
 
   def restart
     game = Game.new
-    run_game
+    game.run_game
   end
-
-
-
-
 
 end

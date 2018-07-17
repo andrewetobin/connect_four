@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 require './lib/board'
-require './lib/spot'
+require './lib/game'
 
 class BoardTest < Minitest::Test
 
@@ -19,7 +19,10 @@ class BoardTest < Minitest::Test
 
   def test_it_creates_board
     board = Board.new
+    game = Game.new
 
     assert_equal 6, board.board_arrays.length
+    assert_equal 7, board.board_arrays[3].length
+    assert_equal 7, board.board_arrays[5].length
   end
 end

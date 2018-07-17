@@ -28,6 +28,3 @@ class Board
       #{board[5][0].state}#{board[5][1].state}#{board[5][2].state}#{board[5][3].state}#{board[5][4].state}#{board[5][5].state}#{board[5][6].state}   \n\n\n"
   end
 end
-
-# board = Board.new
-# board.display_board
