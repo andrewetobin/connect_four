@@ -44,6 +44,7 @@ module Messages
 
   def player_won
     puts "AMAZING you won!! ".white.on_red.blink
+    sleep(6)
   end
 
   def computer_won

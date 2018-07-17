@@ -9,11 +9,12 @@ class Game
   include Messages
   # include Validations
 
-  attr_reader :player, :computer, :board
+  attr_reader :player, :computer, :board, :winning_combos
   attr_accessor :round
   # include Validations
   def initialize
     @round = 1
+    @winning_combos = [[1, 2, 3, 4], [1, 8, 15, 22], [1, 9, 17, 25], [2, 3, 4, 5], [2, 9, 16, 23], [2, 10, 18, 26], [3, 4, 5, 6], [3, 10, 17, 24], [3, 11, 19, 27], [4, 5, 6, 7], [4, 10, 16, 22], [4, 11, 18, 25], [4, 12, 20, 28], [5, 11, 17, 23], [5, 12, 19, 26], [6, 12, 18, 24], [6, 13, 20, 27], [7, 13, 19, 25], [7, 14, 21, 28], [8, 9, 10, 11], [8, 15, 22, 29], [8, 16, 24, 32], [9, 10, 11, 12], [9, 16, 23, 30], [9, 17, 25, 33], [10, 11, 12, 13], [10, 17, 24, 31], [10, 18, 26, 34], [11, 12, 13, 14], [11, 17, 23, 29], [11, 18, 25, 32], [11, 19, 27, 35], [12, 18, 24, 30], [12, 19, 26, 33], [13, 19, 25, 31], [13, 20, 27, 34], [14, 20, 26, 32], [14, 21, 28, 35], [15, 16, 17, 18], [15, 22, 29, 36], [15, 23, 31, 39], [16, 17, 18, 19], [16, 23, 30, 37], [16, 24, 32, 40], [17, 18, 19, 20], [17, 24, 31, 38], [17, 25, 33, 41], [18, 19, 20, 21], [18, 24, 30, 36], [18, 25, 32, 39], [18, 26, 34, 42], [19, 25, 31, 32], [19, 26, 33, 40], [20, 26, 32, 38], [20, 27, 34, 41], [21, 27, 33, 39], [21, 28, 35, 42], [22, 23, 24, 25], [23, 24, 25, 26], [24, 25, 26, 27], [25, 26, 27, 28], [29, 30, 31, 32], [30, 31, 32, 33], [31, 32, 33, 34], [32, 33, 34, 35], [36, 37, 38, 39], [37, 38, 39, 40], [38, 39, 40, 41], [39, 40, 41, 42]]
   end
 
   def run_game
@@ -84,7 +85,20 @@ class Game
     player.spots << drop_spot.location
     drop_spot.player_state
     board.display_board
-    computer_turn
+    check_for_win(player.spots)
+    # computer_turn
+  end
+
+  def check_for_win(spots)
+    check = winning_combos.find do |combo|
+      (combo & spots) == combo
+    end
+    if check == nil
+     computer_turn
+    else
+      player_won
+      quit
+    end
   end
 
   def computer_turn
@@ -113,7 +127,7 @@ class Game
     end
     computer.spots << drop_spot.location
     drop_spot.computer_state
-    end_round
+    computer_for_win(computer.spots)
   end
 
   def end_round
@@ -124,7 +138,20 @@ class Game
       draw
     else
     send_back_to_player
-    end 
+    end
+  end
+
+  def computer_for_win(spots)
+    check = winning_combos.find do |combo|
+      (combo & spots) == combo
+    end
+    if check == nil
+    end_round
+    else
+      board.display_board
+      computer_won
+      quit
+    end
   end
 
   def send_back_to_player
@@ -139,10 +166,6 @@ class Game
     user_input = input
     start_game_flow(user_input)
   end
-
-
-
-
 
   def quit
     puts 'Goodbye.'
