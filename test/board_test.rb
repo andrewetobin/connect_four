@@ -22,9 +22,4 @@ class BoardTest < Minitest::Test
 
     assert_equal 6, board.board_arrays.length
   end
-
-
-
-
-
 end
