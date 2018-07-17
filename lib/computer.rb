@@ -4,7 +4,4 @@ class Computer
   def initialize
     @spots = []
   end
-
-
-
 end

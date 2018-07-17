@@ -86,6 +86,10 @@ class Game
     drop_spot = empties.min_by do |spot|
       spot.location
     end
+    end_player_turn(drop_spot)
+  end
+
+  def end_player_turn(drop_spot)
     player.spots << drop_spot.location
     drop_spot.player_state
     board.display_board
@@ -118,7 +122,7 @@ class Game
   end
 
   def computer_drop(letter)
-    one_array = @board.board_arrays.flatten
+    one_array = board.board_arrays.flatten
     column = one_array.find_all do |spot|
       spot.column == letter.upcase
     end
