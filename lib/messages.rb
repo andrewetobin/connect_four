@@ -3,7 +3,7 @@ require 'colorize'
 
 module Messages
 
-  def welcome
+  def greeting
     puts "Hello! Welcome to Connect Four :)".white.on_blue.blink
     sleep(2)
   end
