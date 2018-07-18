@@ -3,7 +3,6 @@ require_relative 'messages'
 require_relative 'player'
 require_relative 'computer'
 require_relative 'spot'
-
 require_relative 'validations'
 
 class Game
@@ -28,7 +27,7 @@ class Game
     start_turn # message to screen
     user_input = input
     check_input(user_input)
-    player_turn(user_input)
+    drop_piece(user_input, "player")
   end
 
   def input
@@ -62,7 +61,7 @@ class Game
     end
   end
 
-  def player_turn(user_input)
+  def drop_piece(user_input, player_or_computer)
     one_array = board.board_arrays.flatten
     column = one_array.find_all do |spot|
       spot.column == user_input.upcase
@@ -73,7 +72,11 @@ class Game
     drop_spot = empties.min_by do |spot|
       spot.location
     end
-    end_player_turn(drop_spot)
+    if player_or_computer == "player"
+      end_player_turn(drop_spot)
+    else
+      end_computer_turn(drop_spot)
+    end
   end
 
   def end_player_turn(drop_spot)
@@ -97,20 +100,10 @@ class Game
     else
       computer_turn
     end
-    computer_drop(letter)
+    drop_piece(letter, "computer")
   end
 
-  def computer_drop(letter)
-    one_array = board.board_arrays.flatten
-    column = one_array.find_all do |spot|
-      spot.column == letter.upcase
-    end
-    empties = column.select do |spot|
-      spot.state == "."
-    end
-    drop_spot = empties.min_by do |spot|
-      spot.location
-    end
+  def end_computer_turn(drop_spot)
     computer.spots << drop_spot.location
     drop_spot.computer_state
     if check_for_win(computer.spots) == false
@@ -137,7 +130,7 @@ class Game
     start_turn
     user_input = input
     check_input(user_input)
-    player_turn(user_input)
+    drop_piece(user_input, "player")
   end
 
   def loop_back
@@ -155,5 +148,4 @@ class Game
     game = Game.new
     game.run_game
   end
-
 end
