@@ -4,15 +4,14 @@ require_relative 'player'
 require_relative 'computer'
 require_relative 'spot'
 
-# require_relative 'validations'
+require_relative 'validations'
 
 class Game
   include Messages
-  # include Validations
+  include Validations
 
   attr_reader :player, :computer, :board, :winning_combos
   attr_accessor :round
-  # include Validations
   def initialize
     @round = 1
   end
@@ -63,17 +62,6 @@ class Game
     end
   end
 
-  def check_column(user_input)
-    one_array = board.board_arrays.flatten
-    column = one_array.find_all do |spot|
-      spot.column == user_input.upcase
-    end
-    available = column.any? do |spot|
-      spot.state == "."
-    end
-    return available
-  end
-
   def player_turn(user_input)
     one_array = board.board_arrays.flatten
     column = one_array.find_all do |spot|
@@ -92,15 +80,8 @@ class Game
     player.spots << drop_spot.location
     drop_spot.player_state
     board.display_board
-    check_for_win(player.spots)
-  end
-
-  def check_for_win(spots)
-    check = board.winning_combos.find do |combo|
-      (combo & spots) == combo
-    end
-    if check == nil
-     computer_turn
+    if check_for_win(player.spots) == false
+      computer_turn
     else
       player_won
       restart
@@ -132,7 +113,13 @@ class Game
     end
     computer.spots << drop_spot.location
     drop_spot.computer_state
-    computer_for_win(computer.spots)
+    if check_for_win(computer.spots) == false
+      end_round
+    else
+      board.display_board
+      computer_won
+      restart
+    end
   end
 
   def end_round
@@ -143,19 +130,6 @@ class Game
       draw
     else
     send_back_to_player
-    end
-  end
-
-  def computer_for_win(spots)
-    check = board.winning_combos.find do |combo|
-      (combo & spots) == combo
-    end
-    if check == nil
-    end_round
-    else
-      board.display_board
-      computer_won
-      restart
     end
   end
 
