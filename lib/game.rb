@@ -73,27 +73,34 @@ class Game
       spot.location
     end
     if player_or_computer == "player"
-      end_player_turn(drop_spot)
+      end_player_turn(user_input, drop_spot)
     else
       end_computer_turn(drop_spot)
     end
   end
 
-  def end_player_turn(drop_spot)
+  def end_player_turn(user_input, drop_spot)
     player.spots << drop_spot.location
     drop_spot.player_state
     board.display_board
     if check_for_win(player.spots) == false
-      computer_turn
+      computer_turn(user_input)
     else
       player_won
       restart
     end
   end
 
-  def computer_turn
-    letters = ("A".."G").to_a
-    number = rand(0..6)
+  def computer_turn(user_input)
+    letters = ("a".."g").to_a
+    key = {"a"=>0, "b"=>1, "c"=>2, "d"=>3, "e"=>4, "f"=>5, "g"=>6}
+    if user_input.downcase == "a"
+      number = rand(0..1)
+    elsif user_input.downcase == "g"
+      number = rand(5..6)
+    else
+      number = rand((key[user_input] - 1)..(key[user_input] + 1))
+    end
     letter = letters[number]
     if check_column(letter) == true
       letter
