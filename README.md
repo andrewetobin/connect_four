@@ -1,11 +1,3 @@
-In this project you'll use Ruby to build a command line implementation of the classic game Connect 4.
-
-## Learning Goals / Areas of Focus
-
-* Practice breaking a program into logical components
-* Testing components in isolation and in combination
-* Applying Enumerable techniques in a real context
-* Practice implementing a useable REPL interface
 
 ## Background
 
@@ -78,6 +70,4 @@ If one of those conditions has been met, the player should be given the option o
 * Track win/loss records for players based on a name that they enter that persists between plays (consider writing to CSV). Give players the option of seeing a list of the top ranked players based on their win percentage.
 * Record the time it takes for a player to win a game. Track their fastest wins and fastest losses. Provide an option for users to view their personal statistics once they have entered their name.
 
-## Evaluation Rubric
 
-The evaluation rubric for this project is available [here](../project_rubric)
